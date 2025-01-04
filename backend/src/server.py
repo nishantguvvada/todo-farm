@@ -14,11 +14,10 @@ import uvicorn
 from dal import ToDoDAL, ListSummary, ToDoList
 
 COLLECTION_NAME = "todo_farm"
-# MONGODB_URI = os.environ["MONGODB_URI"]
-MONGODB_URI = 
+MONGODB_URI = os.environ["MONGODB_URI"]
 DEBUG = os.environ.get("DEBUG", "").strip().lower() in {"1", "true", "on", "yes"}
 origins = [
-    "http://localhost:5173/"
+    "http://localhost:3000/"
 ]
 
 @asynccontextmanager
