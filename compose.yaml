@@ -22,7 +22,7 @@ services:
       - "3000"
     ports:
       - "3000:3000"
-    command: "npm start"
+    command: "npm run dev"
   backend:
     image: todo-app/backend
     build: ./backend
