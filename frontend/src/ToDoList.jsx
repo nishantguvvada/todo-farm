@@ -2,6 +2,7 @@ import "./ToDoList.css";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { BiSolidTrash, BiPen, BiCheckCircle } from "react-icons/bi";
+import { BACKEND_API } from "./App";
 
 function ToDoList({ listId, handleBackButton }) {
   let labelRef = useRef();
@@ -9,7 +10,7 @@ function ToDoList({ listId, handleBackButton }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(`http://localhost:3001/api/lists/${listId}`);
+      const response = await axios.get(`${BACKEND_API}/api/lists/${listId}`);
       const newData = await response.data;
       setListData(newData);
     };
@@ -18,7 +19,7 @@ function ToDoList({ listId, handleBackButton }) {
 
   function handleCreateItem(label) {
     const updateData = async () => {
-      const response = await axios.post(`http://localhost:3001/api/lists/${listData.id}/items/`, {
+      const response = await axios.post(`${BACKEND_API}/api/lists/${listData.id}/items/`, {
         label: label,
       });
       setListData(await response.data);
@@ -29,7 +30,7 @@ function ToDoList({ listId, handleBackButton }) {
   function handleDeleteItem(id) {
     const updateData = async () => {
       const response = await axios.delete(
-        `http://localhost:3001/api/lists/${listData.id}/items/${id}`
+        `${BACKEND_API}/api/lists/${listData.id}/items/${id}`
       );
       setListData(await response.data);
     };
@@ -39,7 +40,7 @@ function ToDoList({ listId, handleBackButton }) {
   function handleCheckToggle(itemId, newState) {
     const updateData = async () => {
       const response = await axios.patch(
-        `http://localhost:3001/api/lists/${listData.id}/checked_state`,
+        `${BACKEND_API}/api/lists/${listData.id}/checked_state`,
         {
           item_id: itemId,
           checked_state: newState,

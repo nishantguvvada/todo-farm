@@ -4,6 +4,8 @@ import "./App.css";
 import ListToDoLists from "./ListTodoLists";
 import ToDoList from "./ToDoList";
 
+export const BACKEND_API = import.meta.env.VITE_BACKEND_URI;
+
 function App() {
   const [listSummaries, setListSummaries] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -13,7 +15,7 @@ function App() {
   }, []);
 
   async function reloadData() {
-    const response = await axios.get("http://localhost:3001/api/lists");
+    const response = await axios.get(`${BACKEND_API}/api/lists`);
     const data = await response.data;
     setListSummaries(data);
   }
@@ -24,7 +26,7 @@ function App() {
         name: newName,
       };
 
-      await axios.post(`http://localhost:3001/api/lists`, newListData);
+      await axios.post(`${BACKEND_API}/api/lists`, newListData);
       reloadData().catch(console.error);
     };
     updateData();
@@ -32,7 +34,7 @@ function App() {
 
   function handleDeleteToDoList(id) {
     const updateData = async () => {
-      await axios.delete(`http://localhost:3001/api/lists/${id}`);
+      await axios.delete(`${BACKEND_API}/api/lists/${id}`);
       reloadData().catch(console.error);
     };
     updateData();
